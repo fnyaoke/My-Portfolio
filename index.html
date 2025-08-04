@@ -1,1 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta setup for proper rendering and responsive design -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+  <!-- Page title and description -->
+  <title>Florence Nyaoke | Portfolio</title>
+  <meta name="description" content="One-page portfolio for Florence Nyaoke" />
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Internal CSS styling -->
+  <style>
+    /* Base reset and box model */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    /* Body styling */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* Link color and style */
+    a {
+      color: #aa6600;
+      text-decoration: none;
+    }
+
+    /* Section headings */
+    h2 {
+      color: #b8860b;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Universal section styling */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* Carousel header layout */
+    .carousel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right, #fff9f0, #fdfdfd);
+      padding: 3rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Profile image container */
+    .profile-img {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* Profile image styling */
+    .profile-img img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid #b8860b;
+    }
+
+    /* Intro text next to profile image */
+    .intro {
+      flex: 2;
+      padding: 1rem;
+      animation: fade 8s infinite alternate;
+    }
+
+    /* Name header styling with gradient */
+    .intro h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #b8860b, #ffa500, #7e5bef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Subtitle under name */
+    .intro p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    /* Fade animation for intro */
+    @keyframes fade {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    /* Sticky navigation bar */
+    nav {
+      background: #f6f6f6;
+      text-align: center;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Navigation links */
+    nav a {
+      margin: 0 1rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(to right, #ffd700, #ffa500, #7e5bef);
+      border-radius: 20px;
+      font-weight: bold;
+      color: #fff;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #ffcc00;
+      color: #000;
+    }
+
+    /* Card container */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    /* Individual card styling */
+    .card {
+      width: calc(25% - 1.5rem); /* 4 cards per row */
+      height: 220px;
+      perspective: 1000px; /* 3D effect */
+      min-width: 220px; /* for mobile fallback */
+    }
+
+    /* Inner wrapper for flipping animation */
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+
+    /* Rotate on hover */
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Front and back of the card */
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      padding: 1rem;
+      background: #fff3e6;
+      color: #333;
+      backface-visibility: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Back of the card flipped */
+    .card-back {
+      transform: rotateY(180deg);
+      background: #fef6fa;
+    }
+
+    /* Timeline (legacy — currently unused) */
+    .timeline {
+      border-left: 4px solid #b8860b;
+      padding-left: 1rem;
+    }
+
+    /* Timeline items */
+    .timeline div {
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline h4 {
+      color: #d2691e;
+    }
+
+    /* Contact section */
+    .contact {
+      text-align: center;
+    }
+
+    /* Social media icon styling */
+    .socials a {
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      color: #b8860b;
+    }
+
+    .socials a:hover {
+      color: #7e5bef;
+    }
+
+    /* Footer styling */
+    footer {
+      background: #f6f6f6;
+      text-align: center;
+      padding: 1rem;
+      color: #666;
+      margin-top: 2rem;
+    }
+
+    /* Responsive: 2 cards per row on tablets */
+    @media (max-width: 1024px) {
+      .card {
+        width: calc(50% - 1.5rem);
+      }
+    }
+
+    /* Responsive: full-width cards on phones */
+    @media (max-width: 600px) {
+      .card {
+        width: 100%;
+      }
+
+      .intro h1 {
+        font-size: 1.8rem;
+        text-align: center;
+      }
+
+      nav a {
+        display: block;
+        margin: 0.5rem auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <!-- Header with profile and intro -->
+  <div class="carousel">
+    <div class="profile-img">
+      <img src="Profile Picture.jpeg" alt="Florence Nyaoke" />
+    </div>
+    <div class="intro">
+      <h1>Florence Nyaoke</h1>
+      <p>Software Developer | Social Media Strategist | Systems Thinker</p>
+    </div>
+  </div>
+
+  <!-- Navigation menu -->
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#education">Education</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#interest">Interest</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- About me section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a systems thinker, software developer, and storyteller passionate about building inclusive, justice-driven digital spaces. My work sits at the intersection of technology, social impact, and community care, drawing from my background in science, advocacy, and leadership development. I’m driven by womanist values and a deep belief in using code, strategy, and creativity to amplify marginalized voices and reimagine a more liberated, connected world.</p>
+  
+  </section>
+  <!-- Education section -->
+  <section id="education">
+    <h2>Education Background</h2>
+    <div class="cards">
+      <!-- Each education entry is a flip card -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Software Development</h3>
+            <p>Power Learn Project, 2025</p>
+          </div>
+          <div class="card-back">
+            <p>Certificate in software development, including frontend, backend, and databases.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Events Management</h3>
+            <p>Divine Schools Africa, 2017</p>
+          </div>
+          <div class="card-back">
+            <p>Training in corporate event planning, logistics, and coordination.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>BSc. General – Physics Major</h3>
+            <p>University of Nairobi, 2002–2007</p>
+          </div>
+          <div class="card-back">
+            <p>Major in Physics, with emphasis on analytical thinking and research skills.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>IMIS Diploma</h3>
+            <p>Strathmore College, 2001–2002</p>
+          </div>
+          <div class="card-back">
+            <p>Diploma in Management Information Systems focusing on IT fundamentals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects section -->
+  <section id="portfolio">
+    <h2>Projects Done</h2>
+    <div class="cards">
+      <!-- Simple calculator project -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Simple Calculator</h3>
+            <p>Python program that performs basic arithmetic operations in the command line.</p>
+          </div>
+          <div class="card-back">
+            <p><a href="https://github.com/fnyaoke/Simple-Calculator.git">View Calculator</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio site itself -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>My Portfolio</h3>
+            <p>A portfolio website showcasing my background and projects.</p>
+          </div>
+          <div class="card-back">
+            <p><a href="#">Explore this Portfolio</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech skills -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Programming Languages</h3>
+            <p>Python, SQL, HTML5, CSS, SEO, Social Media</p>
+          </div>
+          <div class="card-back">
+            <p>Contact me for software solutions <a href="#contact">here</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interests section -->
+  <section id="interests">
+    <h2>Interests</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Tech for Social Good</h3>
+            <p>Accessible digital tools</p>
+          </div>
+          <div class="card-back">
+            <p>Building tech for justice, inclusion, and empowerment.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Digital Storytelling</h3>
+            <p>Visual + narrative strategy</p>
+          </div>
+          <div class="card-back">
+            <p>Amplifying marginalized voices through multimedia platforms.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">
+            <h3>Community Building</h3>
+            <p>Intentional space-making</p>
+          </div>
+          <div class="card-back">
+            <p>Online/offline facilitation for learning, healing, and organizing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact section -->
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:fnyaoke@gmail.com">fnyaoke@gmail.com</a></p>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/florence-nyaoke-70b95781/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/fnyaoke" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://x.com/FNyaoke" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Florence Nyaoke | Built with HTML & CSS only</p>
+  </footer>
+</main>
+</body>
+</html>
